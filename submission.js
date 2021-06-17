@@ -6,28 +6,27 @@ const findSum = function(array) {
 const findFrequency = function(array) {
   let frequency = {};  
   let max = 0;  
-  let most;   
+  let most;
+  let min = 1000;
+  let least;   
   for(let v in array) {
-        frequency[array[v]]=(frequency[array[v]] || 0)+1; 
-        if(frequency[array[v]] > max) { 
-                max = frequency[array[v]];
-                most = array[v];
-        }
+      frequency[array[v]]=(frequency[array[v]] || 0)+1; 
+      if(frequency[array[v]] > max) { 
+        max = frequency[array[v]];
+        most = array[v];
+      }
   };
-  let arrMap = array.reduce(function(obj, val) {
-    obj[val] = ++obj[val] || 1;
-    return obj;
-  }, {});
-  let least = Object.keys(arrMap)[0];
-  for (key in arrMap) {
-    least = arrMap[least] > arrMap[key] ? key : least;
-  };
-  return `most: ${most}, least: ${least}`;
+  for(let word in frequency){
+    if (frequency[word] < min) {
+      min = frequency[word]
+      least = word;
+    }
+  }
+ return `most: ${most}, least: ${least}`;
 };
 
 const isPalindrome = function(str) {
-  const sstr = str.toLowerCase();
-  if(sstr === sstr.split('').reverse().join('')){
+  if(str.toLowerCase() === str.toLowerCase().split('').reverse().join('')){
     return true;
   } else{
     return false;
